@@ -1,6 +1,11 @@
 const router = require('express').Router();
+const bcrypt = require('bcryptjs');
+const { JWT_SECRET } = require('../secrets');
+const jwt = require('jsonwebtoken');
+const { checkUsernameFree, checkUsernameExists } = require('../middleware/auth-middleware');
+const User = require('../users/users-model');
 
-router.post('/register', (req, res) => {
+router.post('/register', checkUsernameFree, (req, res) => {
   res.end('implement register, please!');
   /*
     IMPLEMENT
@@ -29,7 +34,7 @@ router.post('/register', (req, res) => {
   */
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', checkUsernameExists, async (req, res) => {
   res.end('implement login, please!');
   /*
     IMPLEMENT
@@ -55,5 +60,9 @@ router.post('/login', (req, res) => {
       the response body should include a string exactly as follows: "invalid credentials".
   */
 });
+
+function buildToken (user) {
+  return null
+}
 
 module.exports = router;
